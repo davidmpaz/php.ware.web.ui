@@ -1,30 +1,30 @@
-«IMPORT php::ware::ui::wizard»
+Â«IMPORT php::ware::ui::wizardÂ»
 
-«DEFINE main FOR WebProjectInfo»
-«EXPAND model FOR this»
-«EXPAND workflow FOR this»
-«ENDDEFINE»
+Â«DEFINE main FOR WebProjectInfoÂ»
+Â«EXPAND model FOR thisÂ»
+Â«EXPAND workflow FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE model FOR WebProjectInfo»
-«FILE "src/model/Model.web"-»
+Â«DEFINE model FOR WebProjectInfoÂ»
+Â«FILE "src/model/Model.web"-Â»
 /*
  * This is an example model for the web dsl
  */
-«ENDFILE»
-«FILE "src/model/Model.config"-»
+Â«ENDFILEÂ»
+Â«FILE "src/model/Model.config"-Â»
 /*
  * This is an example model for the configuration dsl
  */
-«ENDFILE»
-«FILE "src/model/Domain.model"-»
+Â«ENDFILEÂ»
+Â«FILE "src/model/Domain.model"-Â»
 /*
  * This is an example model for the domain model dsl
  */
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE workflow FOR WebProjectInfo»
-«FILE "src/Generator.mwe2"-»
+Â«DEFINE workflow FOR WebProjectInfoÂ»
+Â«FILE "src/Generator.mwe2"-Â»
 module Generator
 
 import org.eclipse.emf.mwe.utils.*
@@ -48,20 +48,20 @@ Workflow {
     }
     
     // persistence workflow
-    «IF this.persistenceCartridgeName != ""-»
-    component = @php.ware.entity.workflow.«this.persistenceCartridgeName»EntityGenerator auto-inject {}
-    «ELSE-»
+    Â«IF this.persistenceCartridgeName != ""-Â»
+    component = @php.ware.entity.workflow.Â«this.persistenceCartridgeNameÂ»EntityGenerator auto-inject {}
+    Â«ELSE-Â»
     // none was selected by wizard, options to setup follow
     // component = @php.ware.entity.workflow.[ezpdo|ci|zf]EntityGenerator auto-inject {}
-    «ENDIF»
+    Â«ENDIFÂ»
 
     // controller workflow
-    «IF this.controllerCartridgeName != ""-»
-	component = @php.ware.web.workflow.«this.controllerCartridgeName»WebGenerator auto-inject {}
-	«ELSE-»
+    Â«IF this.controllerCartridgeName != ""-Â»
+	component = @php.ware.web.workflow.Â«this.controllerCartridgeNameÂ»WebGenerator auto-inject {}
+	Â«ELSE-Â»
 	// none was selected by wizard, options to setup follow
 	// component = @php.ware.web.workflow.[ci|zf]WebGenerator auto-inject {}
-	«ENDIF»
+	Â«ENDIFÂ»
 	
 	// Merge hand edited with generated files
     //component = FileCopy {
@@ -69,5 +69,5 @@ Workflow {
     //    targetFile = "${targetDir}/${rootDirName}"
     //}
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
