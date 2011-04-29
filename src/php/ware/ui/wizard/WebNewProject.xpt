@@ -1,0 +1,73 @@
+«IMPORT php::ware::ui::wizard»
+
+«DEFINE main FOR WebProjectInfo»
+«EXPAND model FOR this»
+«EXPAND workflow FOR this»
+«ENDDEFINE»
+
+«DEFINE model FOR WebProjectInfo»
+«FILE "src/model/Model.web"-»
+/*
+ * This is an example model for the web dsl
+ */
+«ENDFILE»
+«FILE "src/model/Model.config"-»
+/*
+ * This is an example model for the configuration dsl
+ */
+«ENDFILE»
+«FILE "src/model/Domain.model"-»
+/*
+ * This is an example model for the domain model dsl
+ */
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE workflow FOR WebProjectInfo»
+«FILE "src/Generator.mwe2"-»
+module Generator
+
+import org.eclipse.emf.mwe.utils.*
+
+var targetDir = "src-gen"
+var modelPath = "src/model"
+
+// Name of the root folder for project
+var rootDirName = "application"
+// Name of the root folder for model artifacts
+var rootModelDirName = "models"
+// Name of root folder for controller artifacts
+var rootControllerDirName = "controllers"
+// Implementation (hand modified) dir name
+var rootImpDirName = "src"
+
+Workflow {
+
+    component = DirectoryCleaner {
+        directory = "${targetDir}"
+    }
+    
+    // persistence workflow
+    «IF this.persistenceCartridgeName != ""-»
+    component = @php.ware.entity.workflow.«this.persistenceCartridgeName»EntityGenerator auto-inject {}
+    «ELSE-»
+    // none was selected by wizard, options to setup follow
+    // component = @php.ware.entity.workflow.[ezpdo|ci|zf]EntityGenerator auto-inject {}
+    «ENDIF»
+
+    // controller workflow
+    «IF this.controllerCartridgeName != ""-»
+	component = @php.ware.web.workflow.«this.controllerCartridgeName»WebGenerator auto-inject {}
+	«ELSE-»
+	// none was selected by wizard, options to setup follow
+	// component = @php.ware.web.workflow.[ci|zf]WebGenerator auto-inject {}
+	«ENDIF»
+	
+	// Merge hand edited with generated files
+    //component = FileCopy {
+    //    sourceFile = "${rootImpDirName}/${rootDirName}"
+    //    targetFile = "${targetDir}/${rootDirName}"
+    //}
+}
+«ENDFILE»
+«ENDDEFINE»

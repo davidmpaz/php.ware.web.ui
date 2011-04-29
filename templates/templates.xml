@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+<template
+    autoinsert="true"
+    context="php.ware.Web.CrudAction"
+    deleted="false"
+    description="create CrudAction"
+    enabled="true"
+    id="crudaction"
+    name="crud">
+${type:Enum('ActionType')}  ${entity} action ${name} {
+}</template>
+</templates>
