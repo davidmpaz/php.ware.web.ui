@@ -54,6 +54,10 @@ public class PhpWareProjectCreator extends WebProjectCreator {
                 "org.eclipse.xtend.util.stdlib",
                 "org.eclipse.emf.mwe2.launch;resolution:=optional");
 
+        // Main DSL projects
+        result.add("php.ware.entity");
+        result.add("php.ware.web");
+        result.add("php.ware.config");
         // get bundles based on user selection
         WebProjectInfo pi = this.getProjectInfo();
 
@@ -79,7 +83,7 @@ public class PhpWareProjectCreator extends WebProjectCreator {
 
         XpandExecutionContextImpl execCtx = new XpandExecutionContextImpl(
                 output, null);
-        execCtx.getResourceManager().setFileEncoding("Cp1252");
+        execCtx.getResourceManager().setFileEncoding("UTF-8");
         execCtx.registerMetaModel(new JavaBeansMetaModel());
 
         XpandFacade facade = XpandFacade.create(execCtx);
