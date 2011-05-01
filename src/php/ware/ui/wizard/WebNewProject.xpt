@@ -1,4 +1,5 @@
 «IMPORT php::ware::ui::wizard»
+«EXTENSION php::ware::ui::wizard::helper»
 
 «DEFINE main FOR WebProjectInfo»
 «EXPAND model FOR this»
@@ -15,17 +16,21 @@
 /*
  * This is an example model for the configuration dsl
  */
+ configure «this.projectName»
+ «EXPAND ConfigSampleModel::main»
 «ENDFILE»
 «FILE "src/model/Domain.model"-»
 /*
  * This is an example model for the domain model dsl
  */
+ 
+ «EXPAND DomainSampleModel::main»
 «ENDFILE»
 «ENDDEFINE»
 
 «DEFINE workflow FOR WebProjectInfo»
-«FILE "src/Generator.mwe2"-»
-module Generator
+«FILE "src/" + this.projectName + "Generator.mwe2"-»
+module «this.projectName»Generator
 
 import org.eclipse.emf.mwe.utils.*
 
@@ -39,12 +44,23 @@ var rootModelDirName = "models"
 // Name of root folder for controller artifacts
 var rootControllerDirName = "controllers"
 // Implementation (hand modified) dir name
-var rootImpDirName = "src"
+var rootImplDirName = "src"
+var baseDirName = "base"
+//truncate src/application
+var cleanSrcDir = true
 
 Workflow {
 
     component = DirectoryCleaner {
         directory = "${targetDir}"
+    }
+
+    component = org.eclipse.emf.mwe.core.container.IfComponent{
+        cond = "${cleanSrcDir}"
+
+        component = DirectoryCleaner {
+            directory = "${rootImplDirName}/${rootDirName}"
+        }
     }
     
     // persistence workflow

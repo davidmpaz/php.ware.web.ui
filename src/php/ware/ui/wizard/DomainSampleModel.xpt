@@ -1,0 +1,31 @@
+«IMPORT php::ware::ui::wizard»
+
+«EXTENSION php::ware::ui::wizard::helper»
+
+«DEFINE main FOR WebProjectInfo»
+    «IF isEZPDO(this.persistenceCartridgeName)»
+        «EXPAND domainModelEZPDO FOR this»
+    «ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE domainModelEZPDO FOR WebProjectInfo»
+package primitive {
+    /*
+      * Datatypes a its counter part in php
+      */
+    datatype bool maps boolean
+    datatype int maps integer
+    datatype char maps string
+    datatype float maps float
+    datatype decimal maps float
+    datatype clob maps string // binary strings
+    datatype blob maps string
+
+    //date and time types
+    datatype date maps integer
+    datatype time maps integer
+    datatype datetime maps integer
+}
+
+«ENDDEFINE»

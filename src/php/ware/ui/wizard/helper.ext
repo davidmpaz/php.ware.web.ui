@@ -1,0 +1,5 @@
+import php::ware::ui::wizard;
+
+Boolean isEZPDO(String cartridge):
+    cartridge == "ezpdo"
+    ;

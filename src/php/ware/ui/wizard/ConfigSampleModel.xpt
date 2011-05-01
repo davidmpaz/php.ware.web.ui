@@ -1,0 +1,35 @@
+«IMPORT php::ware::ui::wizard»
+
+«EXTENSION php::ware::ui::wizard::helper»
+
+«DEFINE main FOR WebProjectInfo»
+    «IF isEZPDO(this.persistenceCartridgeName)»
+        «EXPAND configEZPDO FOR this»
+    «ENDIF»
+«ENDDEFINE»
+
+
+«DEFINE configEZPDO FOR WebProjectInfo»
+configure ezpdo.persistence.options {
+    //Modify these to your needs!, see ezpdo framework docs
+    source_dirs = "entities"
+    default_oid_column = "oid"
+    //For MySql: mysql://username:password@localhost/mydb
+    //For SqlLite: sqlite://mydb.db
+    default_dsn = "mysql://ezpdo:ezpdo@localhost/ezpdo"
+    recursive = "true"
+    compiled_dir = "compiled"
+    force_compile = "true"
+    compiled_file = "compiled.ezpdo"
+    backup_compiled = "false"
+    auto_compile = "true"
+
+    //adodb, peardb, pdo
+    db_lib = "adodb" //recomended
+    log_file = "ezpdo.log"
+    log_console = "true"
+    log_queries = "true"
+    auto_flush = "true"
+    flush_before_find = "true"
+}
+«ENDDEFINE»
